@@ -2,8 +2,6 @@
 
 Based on the work and code described in the Medium article at [https://shinichiokada.medium.com/](https://shinichiokada.medium.com/) ([Building a Website Starter with FastAPI](https://levelup.gitconnected.com/building-a-website-starter-with-fastapi-92d077092864)).
 
-[Please sign up for more free resources.](https://mailchi.mp/ae9891ba897a/codewithshin)
-
 ## Overview
 
 A static simple website ready to deploy.
@@ -26,12 +24,12 @@ See requirements.txt.
 ## Installation & Usage
 
 ```bash
-$ git clone git@github.com:shinokada/fastapi-web-starter.git
+$ git clone git@github.com:notiv/Hypatia.git
 # Or using downloaded zip file 
 $ unzip fastapi-web-starter.zip
 
 # change the directory
-$ cd fastapi-web-starter
+$ cd Hypatia
 # install packages
 $ pip install -r requirements.txt
 # start the server
