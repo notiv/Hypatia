@@ -1,6 +1,6 @@
-# Fastapi Web Starter
+# Hypatia
 
-Please read the Medium article at [https://shinichiokada.medium.com/](https://shinichiokada.medium.com/) ([Building a Website Starter with FastAPI](https://levelup.gitconnected.com/building-a-website-starter-with-fastapi-92d077092864)).
+Based on the work and code described in the Medium article at [https://shinichiokada.medium.com/](https://shinichiokada.medium.com/) ([Building a Website Starter with FastAPI](https://levelup.gitconnected.com/building-a-website-starter-with-fastapi-92d077092864)).
 
 [Please sign up for more free resources.](https://mailchi.mp/ae9891ba897a/codewithshin)
 
