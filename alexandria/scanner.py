@@ -6,7 +6,7 @@ import cv2
 
 warnings.filterwarnings("ignore")
 
-_API_KEY_FILE = "api_key.txt"
+_API_KEY_FILE = "../api_key.txt"
 _CONFIDENCE = 0.5
 
 class Scanner:
@@ -31,10 +31,14 @@ class Scanner:
 
 
     def scan(self):
-        def get_titles(id, img):
+        def get_titles(id, img_box, image, path):
             out = {}
+            img, box = img_box
             out["id"] = id
+            out["image"] = image
+            out["path"] = path
             out["book_image"] = img
+            out["book_box"] = box
             out["title_from_ocr"] = " ".join(ocr.image_to_text(img))
             out["cleaned_titles"] = post_processing.clean_up_text(out["title_from_ocr"])
             out["final_titles"] = post_processing.search_book(out["cleaned_titles"], self.api_key)
@@ -49,31 +53,33 @@ class Scanner:
 
             for n, i in enumerate(sub_images):
                 try:
-                    books_text[path].append(get_titles(n, i))
+                    books_text[path].append(get_titles(n, i, image, path))
                 except Exception:
                     warnings.warn(f"{path}: {n} box is discarded")
-
         self.books_text = books_text
 
     def search(self, str2search):
+        boxes = []
         imgs = []
         for k, v in self.books_text.items():
-            print(k)
+            image = cv2.imread(k)
             for i in v:
                 if i["final_titles"]:
                     loc = [s.lower().find(str2search.lower()) for s in i["final_titles"]]
                     if any(x >= 0 for x in loc):
-                        imgs.append(i["book_image"])
-        self.matches_imgs = imgs
-
-    def export_matches(self):
-        for n, i in enumerate(self.matches_imgs):
-            cv2.imwrite(f"book_{n}.png", i)
+                        #imgs.append(i["book_img"])
+                        #boxes.append(i["book_box"])
+                        xy, width, height, _ = i["book_box"].args4rectangle
+                        image = cv2.rectangle(image, xy, tuple(sum(x) for x in zip(xy, (width, height))),
+                        color=(0, 255, 0), thickness=2)
+            cv2.imwrite(k+"_found.jpeg", image)
 
 
 if __name__ == "__main__":
     s = Scanner()
     s.export_plot_rectangles_cv("./test.png")
     s.scan()
+    s.books_text
     str2search = "computer networks"
     s.search(str2search)
+
