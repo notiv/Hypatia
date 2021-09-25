@@ -121,6 +121,14 @@ def save_img_rectangles(img, box_position, outfile):
     # Add the patch to the Axes
     plt.savefig(outfile)
 
+def save_img_rectangles_cv(img, box_position, outfile):
+    for boxes in box_position:
+        xy, width, height, _ = boxes.args4rectangle
+        img = cv2.rectangle(img, xy, tuple(sum(x) for x in zip(xy, (width, height))), 
+            color=(0, 255, 0), thickness=2)
+    
+    cv2.imwrite(outfile, img)
+
 
 
 if __name__ == "__main__":
