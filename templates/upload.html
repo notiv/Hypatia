@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% set active_page = "upload" %}
+
+{% block title %}Upload{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block page_content %}
+<div class="col-12 up-area">
+    <h1>Upload</h1>
+    <input type="file" name="file" id="file">
+    <!-- Drag and Drop container-->
+    <div class="upload-area" id="uploadfile">
+        <h2 id="howto">Drag and Drop file here or Click to Upload</h2>
+        <button type="submit" class="box_button">Upload</button>
+    </div>
+</div>
+
+
+<div class="col-12">
+    <div class="colorpalette">
+        <h3>Uploaded Image</h3>
+        <div id="result" class="row">
+            <div id="original" class="col-12">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-12 down-area">
+    <h1>Search for a Book</h1>
+    <form action="/form_str" method="post">
+        <input type="Text" name="book" value="" required />
+        <input type="submit">
+    </form>
+</div> 
+
+{% if input_book %}
+<div class="col-12 input-text-area">
+    <h2>We're searching for the book {{input_book}}...</h2>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+<script type="module" src="{{ url_for('static', path='/js/dragdrop.js') }}"></script>
+
+{% endblock %}
