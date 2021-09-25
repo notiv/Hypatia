@@ -1,3 +1,5 @@
+import shutil
+import glob
 import os.path
 import uuid
 from pathlib import Path
@@ -35,6 +37,9 @@ def create_workspace():
     """
     # base directory
     work_dir = Path(settings.work_dir)
+
+    [shutil.rmtree(f) for f in glob.glob('static/upload/*')]
+
     # UUID to prevent file overwrite
     request_id = Path(str(uuid.uuid4())[:8])
     # path concat instead of work_dir + '/' + request_id
