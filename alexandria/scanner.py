@@ -2,6 +2,7 @@ from matplotlib import pyplot as plt
 from requests.api import post
 from alexandria import detection, ocr, post_processing
 import warnings
+import cv2
 
 warnings.filterwarnings("ignore")
 
@@ -47,9 +48,28 @@ class Scanner:
                 except Exception:
                     warnings.warn(f"{path}: {n} box is discarded")
 
-        return books_text
+        self.books_text = books_text
+
+    def search(self, str2search):
+        imgs = []
+        for k, v in self.books_text.items():
+            print(k)
+            for i in v:
+                if i["final_titles"]:
+                    loc = [s.lower().find(str2search.lower()) for s in i["final_titles"]]
+                    if any(x >= 0 for x in loc):
+                        imgs.append(i["book_image"])
+        self.matches_imgs = imgs
+
+    def export_matches(self):
+        for n, i in enumerate(self.matches_imgs):
+            cv2.imwrite(f"book_{n}.png", i)
 
 
 if __name__ == "__main__":
     s = Scanner()
     s.export_plot_rectangles("./test.png")
+    s.scan()
+
+    str2search = "computer networks"
+    s.search(str2search)
