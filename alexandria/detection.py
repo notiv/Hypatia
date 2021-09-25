@@ -108,6 +108,21 @@ def show_img_rectangles(img, box_position):
     plt.show()
 
 
+def save_img_rectangles(img, box_position, outfile):
+    # Create figure and axes
+    fig, ax = plt.subplots()
+    # Display the image
+    ax.imshow(img)
+    for boxes in box_position:
+        xy, width, height, color = boxes.args4rectangle
+        # Create a Rectangle patch
+        ax.add_patch(
+            patches.Rectangle(xy, width, height, edgecolor="red", fill=False))
+    # Add the patch to the Axes
+    plt.savefig(outfile)
+
+
+
 if __name__ == "__main__":
     # user input
     confidence = 0.6
