@@ -6,7 +6,7 @@ import cv2
 
 warnings.filterwarnings("ignore")
 
-_API_KEY_FILE = "../api_key.txt"
+_API_KEY_FILE = "api_key.txt"
 _CONFIDENCE = 0.5
 
 class Scanner:
@@ -24,6 +24,11 @@ class Scanner:
     def export_plot_rectangles(self, outfile):
         for p, i, b in zip(self.images_paths, self.images_list, self.boxes_positions):
             detection.save_img_rectangles(i, b, outfile)
+
+    def export_plot_rectangles_cv(self, outfile):
+        for p, i, b in zip(self.images_paths, self.images_list, self.boxes_positions):
+            detection.save_img_rectangles_cv(i, b, outfile)
+
 
     def scan(self):
         def get_titles(id, img):
@@ -68,8 +73,7 @@ class Scanner:
 
 if __name__ == "__main__":
     s = Scanner()
-    s.export_plot_rectangles("./test.png")
+    s.export_plot_rectangles_cv("./test.png")
     s.scan()
-
     str2search = "computer networks"
     s.search(str2search)
