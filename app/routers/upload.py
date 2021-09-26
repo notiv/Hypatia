@@ -3,12 +3,19 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from ..library.helpers import *
 
+from alexandria import scanner
+
 router = APIRouter()
 templates = Jinja2Templates(directory="templates/")
 
 
 @router.post("/form_str", response_class=HTMLResponse)
 def form_post1(request: Request, book: str = Form(...)):
+    s = scanner.Scanner()
+    s.scan()
+    str2search = book
+    outfile = s.search(str2search)
+
     return templates.TemplateResponse('upload.html', context={'request': request, 'input_book': book })
 
 
