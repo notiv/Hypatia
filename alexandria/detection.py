@@ -79,7 +79,7 @@ def get_boxes(img, outputs, conf, classes_names, colors):
     indices = cv2.dnn.NMSBoxes(boxes, confidences, conf, conf-0.1)
     Position = namedtuple(
         'Position',
-        ['x_slice', 'y_slice', 'args4rectangle'])
+        ['x_slice', 'y_slice', 'args4rectangle', 'args4rectangle_cv'])
     if len(indices) > 0:
         for i in indices.flatten():
             (x, y) = (boxes[i][0], boxes[i][1])
@@ -88,7 +88,8 @@ def get_boxes(img, outputs, conf, classes_names, colors):
             pos = Position(
                 x_slice=(x, x+w),
                 y_slice=(y, y+h),
-                args4rectangle=((x, y), w, h, color)
+                args4rectangle=((x, y), w, h, color),
+                args4rectangle_cv=((x, y), (x+w, y+h))
             )
             positions.append(pos)
     return positions
@@ -124,9 +125,9 @@ def save_img_rectangles(img, box_position, outfile):
 def save_img_rectangles_cv(img, box_position, outfile):
     for boxes in box_position:
         xy, width, height, _ = boxes.args4rectangle
-        img = cv2.rectangle(img, xy, tuple(sum(x) for x in zip(xy, (width, height))), 
+        img = cv2.rectangle(img, xy, tuple(sum(x) for x in zip(xy, (width, height))),
             color=(0, 255, 0), thickness=2)
-    
+
     cv2.imwrite(outfile, img)
 
 

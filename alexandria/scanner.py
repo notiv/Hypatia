@@ -1,3 +1,4 @@
+import os
 from matplotlib import pyplot as plt
 from requests.api import post
 from alexandria import detection, ocr, post_processing
@@ -35,7 +36,7 @@ class Scanner:
             out = {}
             img, box = img_box
             out["id"] = id
-            out["image"] = image
+            out["image"] = image.copy()
             out["path"] = path
             out["book_image"] = img
             out["book_box"] = box
@@ -63,15 +64,16 @@ class Scanner:
         imgs = []
         for k, v in self.books_text.items():
             image = cv2.imread(k)
+            #image = v[0]["image"].copy()
             for i in v:
                 if i["final_titles"]:
                     loc = [s.lower().find(str2search.lower()) for s in i["final_titles"]]
                     if any(x >= 0 for x in loc):
                         #imgs.append(i["book_img"])
                         #boxes.append(i["book_box"])
-                        xy, width, height, _ = i["book_box"].args4rectangle
-                        image = cv2.rectangle(image, xy, tuple(sum(x) for x in zip(xy, (width, height))),
-                        color=(0, 255, 0), thickness=2)
+                        xy, xy_up = i["book_box"].args4rectangle_cv
+                        image = cv2.rectangle(image, xy, xy_up,
+                                    color=(0, 255, 0), thickness=2)
             cv2.imwrite(k+"_found.jpeg", image)
 
 
@@ -79,7 +81,8 @@ if __name__ == "__main__":
     s = Scanner()
     s.export_plot_rectangles_cv("./test.png")
     s.scan()
-    s.books_text
-    str2search = "computer networks"
+    str2search = "Natural Language Processing"
     s.search(str2search)
 
+
+    self = s

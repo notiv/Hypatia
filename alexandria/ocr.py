@@ -58,7 +58,7 @@ def match_template(image, template):
 # ------------------------------------------------------------------
 
 def preprocess4ocr(img):
-    img = cv2.resize(img, None, fx=1.2, fy=1.2, interpolation=cv2.INTER_CUBIC)
+    #img = cv2.resize(img, None, fx=1.2, fy=1.2, interpolation=cv2.INTER_CUBIC)
     img = get_grayscale(img)
     img = thresholding(img)
     return opening(img)
