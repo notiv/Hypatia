@@ -16,7 +16,7 @@ def form_post1(request: Request, book: str = Form(...)):
     str2search = book
     outfile = s.search(str2search)
 
-    return templates.TemplateResponse('upload.html', context={'request': request, 'input_book': book })
+    return templates.TemplateResponse('upload.html', context={'request': request, 'input_book': book, 'outfile': outfile })
 
 
 @router.get("/upload", response_class=HTMLResponse)

@@ -35,11 +35,12 @@
         <input type="Text" name="book" value="" required />
         <input type="submit">
     </form>
-</div> 
+</div>
 
 {% if input_book %}
 <div class="col-12 input-text-area">
-    <h2>We're searching for the book "{{input_book}}"...</h2>
+    <h2>We found the book "{{input_book}}"...</h2>
+    <img src="{{outfile}}" alt="Result" style="width: 800px;">
 </div>
 {% endif %}
 

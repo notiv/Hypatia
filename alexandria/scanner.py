@@ -7,7 +7,7 @@ import cv2
 
 warnings.filterwarnings("ignore")
 
-_API_KEY_FILE = "api_key.txt"
+_API_KEY_FILE = "../api_key.txt"
 _CONFIDENCE = 0.5
 
 class Scanner:
@@ -76,7 +76,7 @@ class Scanner:
                                     color=(0, 255, 0), thickness=5)
             outfile = os.path.splitext(k)[0] + "_found.jpeg"
             cv2.imwrite(outfile, image)
-        
+
         return outfile
 
 
