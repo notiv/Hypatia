@@ -73,8 +73,8 @@ class Scanner:
                         #boxes.append(i["book_box"])
                         xy, xy_up = i["book_box"].args4rectangle_cv
                         image = cv2.rectangle(image, xy, xy_up,
-                                    color=(0, 255, 0), thickness=2)
-            cv2.imwrite(k+"_found.jpeg", image)
+                                    color=(0, 255, 0), thickness=5)
+            cv2.imwrite(os.path.splitext(k)[0]+"_found.jpeg", image)
 
 
 if __name__ == "__main__":
@@ -84,5 +84,3 @@ if __name__ == "__main__":
     str2search = "Natural Language Processing"
     s.search(str2search)
 
-
-    self = s
