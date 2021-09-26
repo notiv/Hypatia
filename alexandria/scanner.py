@@ -7,7 +7,7 @@ import cv2
 
 warnings.filterwarnings("ignore")
 
-_API_KEY_FILE = "../api_key.txt"
+_API_KEY_FILE = "api_key.txt"
 _CONFIDENCE = 0.5
 
 class Scanner:
@@ -73,7 +73,7 @@ class Scanner:
                         #boxes.append(i["book_box"])
                         xy, xy_up = i["book_box"].args4rectangle_cv
                         image = cv2.rectangle(image, xy, xy_up,
-                                    color=(0, 255, 0), thickness=5)
+                                    color=(0, 255, 0), thickness=10)
             outfile = os.path.splitext(k)[0] + "_found.jpeg"
             cv2.imwrite(outfile, image)
 
